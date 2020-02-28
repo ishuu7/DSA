@@ -31,7 +31,7 @@ public:
     }
 
     bool isCyclic(){
-        bool *visited = new bool[v];
+        bool *visited = new bool[v];  
         for(int j = 0; j < v; j++){
             visited[j] = false;
         }
