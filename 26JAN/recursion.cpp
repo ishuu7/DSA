@@ -8,7 +8,7 @@ int multiply(int a, int b){
 	return mul;
 }
 
-int StringToInt(string str){
+int StringToInt(string str){   
 	if(str.size() == 1)
 		return (str[0]-'0');
 	double y = StringToInt(str.substr(1));
@@ -54,11 +54,65 @@ void BubbleSort(int *a, int id, int n){
 }
 
 
+void TowerOfHanoi(int n, char src, char des, char aux){
+	if(n == 0)return;
+
+	TowerOfHanoi(n-1, src, aux, des);
+
+	cout << "Move " << n <<" disk from "<<src <<" to "<<des <<"\n";
+
+	TowerOfHanoi(n-1, src, des, aux);
+}
+
+void merge(int *a, int s, int e){
+	int mid = (s+e)/2;
+
+	int j = s;
+	int k = mid +1;
+	int te = s;
+	
+	int temp[100];
+
+	while(j <= mid && k <= e){
+		if(a[j] < a[k])
+			temp[te++] = a[j++];
+		else temp[te++] = a[k++];
+	}
+	while(j <= mid){
+		temp[te++] = a[j++];
+	}
+	while(k <= e){
+		temp[te++] = a[k++];
+	}
+
+
+	for(int i = s; i <= e; i++)
+		a[i] = temp[i];
+}
+
+void mergeSort(int *a, int s, int e){
+	// base case when there are 1 or 0 elements
+	if(s >= e)return;
+
+	// Now dividing
+	int mid = (s+e)/2;
+
+
+	mergeSort(a, s, mid);
+	mergeSort(a, mid+1, e);
+
+	//now to merge
+
+	merge(a, s, e);
+
+
+
+}
+
+
 
 
 int main() {
-	int arr[5] = {1, 2, 12, 13, 1};
-	BubbleSort(arr, 0, 5);
-	for(int i = 0; i < 5; i++)cout << arr[i] <<" ";
+
 	return 0;
 }
