@@ -1,116 +1,91 @@
 #include <bits/stdc++.h>
+#define int long long int
 using namespace std;
-#define mod (1e9 + 7)
-typedef long long int ll;
-#define loop(i,a,b) for(ll i = (ll)a ; i < (ll)b ; i++)
 
-// for claculating (a^n) with recursion
 
-// kedane's algo
-int maxSubArr(vector<ll>&nums){
-	ll till = 0, ans = INT_MIN;
-	for(ll u : nums){
-		a += u;
-		ans = ans(a, ans);
-		a = max(a, 0);	
-	}
-	return ans;
+
+const int N = 3e5 + 5;
+ 
+int fact[N], invfact[N];
+ 
+ 
+const int mod = 998244353;
+ 
+int binpow(int base, int pow, int MOD) {
+        if(pow == 0)
+                return 1;
+        int res = binpow(base, pow / 2, MOD);
+        res %= mod;
+        int ans = 1;
+        if(pow & 1)
+                ans *= base;
+        return (ans * ((res * res) % mod) % mod);
 }
-
-
-ll binExpR(ll a, ll n){
-	if(n == 0)
-		return 1;
-	ll res = binExp(a, n/2);
-	if(n&1)
-		return (a*res*(res));
-	return res*res;
+ 
+int modInverse(int k) {
+        return binpow(k, mod - 2, mod);
 }
-
-// for claculating (a^n) without recursion
-ll binExp(ll a, ll n){
-	ll res = 1;
-	while(b > 0){
-		if(b&1)
-			res *= a;
-		a *= a;
-		b >>= 1;
-	}
-	return res;
+ 
+void fac(int n) {
+        fact[0] = 1;
+        fact[1] = 1;
+        for(int i = 2; i <= n; i++) {
+                fact[i] = fact[i - 1] * i;
+                fact[i] %= mod;
+        }
+        invfact[n - 1] = modInverse(fact[n - 1]);
+        //o(invfact[n - 1]);
+        for(int i =n - 2; i >= 0; i--) {
+                invfact[i] = invfact[i + 1] * (i + 1);
+                invfact[i] %= mod;
+        }
 }
-
-
-// for calculating (a^n)%modu
-long long binExpMod(long long a, long long b, long long m) {
-    a %= m;
-    long long res = 1;
-    while (b > 0) {
-        if (b & 1)
-            res = res * a % m;
-        a = a * a % m;
-        b >>= 1;
-    }
-    return res;
-}
-
 
 
 // gcd(a, b) using euclidean algo in O(log(min(a,b))) through lame's theorem
-ll gcdR(ll a, ll b){
-	if(b != 0){
-		return gcd(b, a%b);
-	}
-	return a;
+int gcdR(int a, int b){
+        if(b != 0){
+                return gcdR(b, a%b);
+        }
+        return a;
 }
 
 // gcd(a, b) non recursive
-ll gcd(ll a, ll b){
-	while(b){
-		a %= b;
-		swap(a, b);
-	}
-	return a;
+int gcd(int a, int b){
+        while(b){
+                a %= b;
+                swap(a, b);
+        }
+        return a;
 }
 
 
-ll lcm(ll a, ll b){
-	return ((a)/gcd(a,b))*b; // to avoid integer flow
+int lcm(int a, int b){
+        return ((a)/gcd(a,b))*b; // to avoid integer flow
 }
 
-ll extendedEuclidGCD(ll a, ll b, ll &x, ll &y){
-	if(a == 0){
-		x = 0;
-		y = 1;
-		return(a, b, x, y);
-	}
-	ll x1, y1;
-	ll d;
-	d = extendedEuclidGCD(b%a, a, x1, y1);
-	x = y1 - (b/a)*x1;
-	y = x1;
-	return d;	
+int extendedEuclidGCD(int a, int b, int &x, int &y){
+        if(a == 0){
+                x = 0;
+                y = 1;
+                return(a, b, x, y);
+        }
+        int x1, y1;
+        int d;
+        d = extendedEuclidGCD(b%a, a, x1, y1);
+        x = y1 - (b/a)*x1;
+        y = x1;
+        return d;       
 }
 
 
-int main() {
-	#ifndef ONLINE_JUDGE
-		freopen("inpu.txt", "r", stdin);
-		freopen("opt.txt", "w", stdout);
-	#endif
+signed main() {
+        #ifndef ONLINE_JUDGE
+                freopen("in.txt", "r", stdin);
+                freopen("op.txt", "w", stdout);
+        #endif
 
-
-
-
-		
-
-
-
-
-
-
-
-
-	return 0;
+        return 0;
 }
 
 
